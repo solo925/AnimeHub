@@ -6,24 +6,30 @@ export const useFetchAnime = <T>(fetchFunction: () => Promise<T>) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchData = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const response = await fetchFunction();
-        setData(response);
+        if (isMounted) setData(response);
       } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("Failed to fetch anime data.");
+        if (isMounted) {
+          setError(
+            err instanceof Error ? err.message : "Failed to fetch anime data."
+          );
         }
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     fetchData();
-  }, [fetchFunction]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [fetchFunction]); 
 
   return { data, loading, error };
 };

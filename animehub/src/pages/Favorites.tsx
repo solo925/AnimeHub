@@ -2,11 +2,16 @@ import { Grid, Typography } from "@mui/material";
 import AnimeCard from "../components/AnimeCard";
 import { useFetchAnimeById } from "../hooks/useFetchAnimeById";
 import { useFavorites } from "../contexts/FavoritesContext";
- 
+import CanvasLoader from "../components/Loader";
+
 
 const Favorites = () => {
-  const { favorites } = useFavorites();
-  const { animeList } = useFetchAnimeById(favorites); 
+  const { favorites, toggleFavorite } = useFavorites();
+  const { animeList, isLoading } = useFetchAnimeById(favorites);
+
+  if (isLoading) {
+    return <CanvasLoader />;
+  }
 
   return (
     <Grid container spacing={3} sx={{ padding: 3 }}>
@@ -19,7 +24,12 @@ const Favorites = () => {
       ) : (
         animeList.map((anime) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={anime.mal_id}>
-            <AnimeCard anime={anime} onViewDetails={() => {}} />
+            <AnimeCard
+              anime={anime}
+              onViewDetails={() => {}}
+              isFavorite={favorites.includes(String(anime.mal_id))}
+              onToggleFavorite={() => toggleFavorite(String(anime.mal_id))}
+            />
           </Grid>
         ))
       )}

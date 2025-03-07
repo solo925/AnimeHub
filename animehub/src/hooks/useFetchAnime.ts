@@ -1,35 +1,33 @@
 import { useEffect, useState } from "react";
 
-export const useFetchAnime = <T>(fetchFunction: () => Promise<T>) => {
+export const useFetchAnime = <T>(fetchFunction: () => Promise<T>, dependencies: unknown[] = []) => {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetchFunction();
-        if (isMounted) setData(response);
-      } catch (err: unknown) {
-        if (isMounted) {
-          setError(
-            err instanceof Error ? err.message : "Failed to fetch anime data."
-          );
-        }
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
+    setIsLoading(true);
+    setError(null);
 
-    fetchData();
+    fetchFunction()
+      .then((response) => {
+        if (isMounted) setData(response);
+      })
+      .catch((err) => {
+        if (isMounted) {
+          setError(err instanceof Error ? err.message : "Failed to fetch anime data.");
+        }
+      })
+      .finally(() => {
+        if (isMounted) setIsLoading(false);
+      });
 
     return () => {
       isMounted = false;
     };
-  }, [fetchFunction]); 
+  }, dependencies);
 
-  return { data, loading, error };
+  return { data, isLoading, error };
 };

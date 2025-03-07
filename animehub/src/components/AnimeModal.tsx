@@ -6,6 +6,7 @@ interface AnimeModalProps {
   anime: Anime | null; 
   open: boolean; 
   onClose: () => void; 
+  
 }
 
 const AnimeModal: React.FC<AnimeModalProps> = ({ anime, open, onClose }) => {

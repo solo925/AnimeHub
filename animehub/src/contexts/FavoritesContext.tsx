@@ -4,6 +4,7 @@ interface FavoritesContextType {
   favorites: string[];
   addFavorite: (id: string) => void;
   removeFavorite: (id: string) => void;
+  toggleFavorite: (id: string) => void;
 }
 
 const FavoritesContext = createContext<FavoritesContextType | null>(null);
@@ -28,8 +29,17 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     setFavorites((prev) => prev.filter((item) => item !== id));
   };
 
+  // **Fix: Implement toggleFavorite**
+  const toggleFavorite = (id: string) => {
+    if (favorites.includes(id)) {
+      removeFavorite(id);
+    } else {
+      addFavorite(id);
+    }
+  };
+
   return (
-    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite }}>
+    <FavoritesContext.Provider value={{ favorites, addFavorite, removeFavorite, toggleFavorite }}>
       {children}
     </FavoritesContext.Provider>
   );

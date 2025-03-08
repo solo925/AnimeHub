@@ -29,7 +29,6 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
     setFavorites((prev) => prev.filter((item) => item !== id));
   };
 
-  // **Fix: Implement toggleFavorite**
   const toggleFavorite = (id: string) => {
     if (favorites.includes(id)) {
       removeFavorite(id);

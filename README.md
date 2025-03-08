@@ -1,7 +1,3 @@
-Got it! I'll **explain** all the key technologies and techniques used in **AnimeHub**, including **debouncing, throttling, HOCs, and the "single-button event handler" technique** (which I think you're referring to as an event delegation pattern).  
-
----
-
 ## **🌟 Technologies & Techniques Used in AnimeHub**  
 
 ### 1️⃣ **Higher-Order Components (HOC)**

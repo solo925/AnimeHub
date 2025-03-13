@@ -3,17 +3,17 @@ import { Anime } from "../types/anime";
 
 export const useFetchAnimeById = (ids: string[]) => {
   const [animeList, setAnimeList] = useState<Anime[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // ✅ Add loading state
+  const [isLoading, setIsLoading] = useState<boolean>(true); 
 
   useEffect(() => {
     if (ids.length === 0) {
       setAnimeList([]);
-      setIsLoading(false); // ✅ No anime to fetch, stop loading
+      setIsLoading(false); 
       return;
     }
 
     const fetchData = async () => {
-      setIsLoading(true); // ✅ Set loading to true before fetching
+      setIsLoading(true); 
 
       try {
         const responses = await Promise.all(
@@ -31,12 +31,12 @@ export const useFetchAnimeById = (ids: string[]) => {
       } catch (error) {
         console.error("Error fetching anime:", error);
       } finally {
-        setIsLoading(false); // ✅ Stop loading after fetching
+        setIsLoading(false); 
       }
     };
 
     fetchData();
   }, [ids]);
 
-  return { animeList, isLoading }; // ✅ Return isLoading
+  return { animeList, isLoading }; 
 };

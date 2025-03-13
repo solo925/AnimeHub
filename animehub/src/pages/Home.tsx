@@ -10,8 +10,9 @@ import Search from "../components/Search";
 import AnimeModal from "../components/AnimeModal";
 import { Anime } from "../types/anime";
 import { useFavorites } from "../contexts/FavoritesContext";
-import CanvasLoader from "../components/Loader";
+// import CanvasLoader, { UILoader } from "../components/Loader";
 import { throttle } from "lodash";
+import { UILoader } from "../components/Loader";
 
 
 const Home = () => {
@@ -56,15 +57,23 @@ const Home = () => {
   };
 
   if (isLoading) {
-    return <CanvasLoader />;
+    // return <CanvasLoader />;
+    return <UILoader/>
   }
 
   return (
-    <Container maxWidth={false} disableGutters sx={{ paddingY: 3 }}>
+    <Container maxWidth={false} disableGutters   sx={{
+      paddingY: 3,
+      marginX:12,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}>
        <Grid container spacing={3} sx={{ height: "100%" }} onClick={handleFavoriteClick}>
         <Grid item xs={12} display="flex" justifyContent="space-between" alignItems="center">
           <Search />
-          <Button component={Link} to="/favorites" variant="contained" color="secondary">
+          <Button component={Link} to="/favorites" variant="contained" color="secondary" 
+          >
             View Favorites
           </Button>
         </Grid>

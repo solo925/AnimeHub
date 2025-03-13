@@ -35,6 +35,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime, onViewDetails, isFavorite,
             alt={anime.title || "Anime Image"}
             className="object-cover"
             onClick={() => onViewDetails(anime)}
+            sx={{cursor:"pointer"}}
           />
           <CardContent>
             <Typography variant="h6" className="font-bold">

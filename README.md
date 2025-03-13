@@ -1,3 +1,5 @@
+live website:https://anime-hub-lac.vercel.app/
+
 ## **🌟 Technologies & Techniques Used in AnimeHub**  
 
 ### 1️⃣ **Higher-Order Components (HOC)**
